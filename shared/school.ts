@@ -1,4 +1,4 @@
-export type SchoolType = 'school' | 'gymnasium' | 'lyceum' | 'private'
+export type SchoolType = 'school' | 'gymnasium' | 'lyceum'
 export type Funding = 'public' | 'private'
 
 export interface School {
@@ -6,11 +6,14 @@ export interface School {
   name: string
   type: SchoolType
   funding: Funding
-  district: string
-  address: string
+  district: string | null
+  address: string | null
   languages: string[]
-  grades: string
-  phone?: string
-  website?: string
-  rating?: number
+  grades: string | null
+  phone: string | null
+  email: string | null
+  website: string | null
+  tuition: string | null
+  lat: number | null
+  lon: number | null
 }
