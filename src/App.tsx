@@ -37,6 +37,7 @@ const fundingColors: Record<School['funding'], string> = {
 }
 
 const ALL_DISTRICTS = 'all'
+const ALL_FUNDING = 'all'
 
 function App() {
   const [schools, setSchools] = useState<School[]>([])
@@ -44,6 +45,7 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [query, setQuery] = useState('')
   const [district, setDistrict] = useState(ALL_DISTRICTS)
+  const [funding, setFunding] = useState(ALL_FUNDING)
 
   useEffect(() => {
     fetch('/api/schools')
@@ -67,9 +69,10 @@ function App() {
     return schools.filter((s) => {
       if (q && !s.name.toLowerCase().includes(q)) return false
       if (district !== ALL_DISTRICTS && s.district !== district) return false
+      if (funding !== ALL_FUNDING && s.funding !== funding) return false
       return true
     })
-  }, [schools, query, district])
+  }, [schools, query, district, funding])
 
   return (
     <div className="min-h-svh bg-gradient-to-b from-primary/5 via-background to-background">
@@ -85,7 +88,7 @@ function App() {
               </h1>
               <p className="mt-1 text-muted-foreground">
                 Агрегатор школ, гимназий и лицеев ·{' '}
-                <span className="font-medium text-foreground">{schools.length}</span> школ
+                <span className="font-medium text-foreground">{filtered.length}</span> школ
               </p>
             </div>
           </div>
@@ -117,6 +120,22 @@ function App() {
                   {d}
                 </SelectItem>
               ))}
+            </SelectContent>
+          </Select>
+          <Select value={funding} onValueChange={(value) => setFunding(value ?? ALL_FUNDING)}>
+            <SelectTrigger className="sm:w-48">
+              <SelectValue placeholder="Любая форма">
+                {(value: unknown) =>
+                  value === ALL_FUNDING
+                    ? 'Любая форма'
+                    : fundingLabels[value as School['funding']]
+                }
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={ALL_FUNDING}>Любая форма</SelectItem>
+              <SelectItem value="public">{fundingLabels.public}</SelectItem>
+              <SelectItem value="private">{fundingLabels.private}</SelectItem>
             </SelectContent>
           </Select>
         </div>
