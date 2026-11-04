@@ -2,6 +2,9 @@
 
 Прод: https://almaty-schools.kulakhmetova.workers.dev
 
+<img width="1180" height="696" alt="Almaty Schools" src="https://github.com/user-attachments/assets/6cb7d281-384a-48a2-992a-126b5e34d8ba" />
+
+
 Агрегатор школ, гимназий и лицеев города Алматы. React-фронтенд отдаётся статикой,
 а API реализовано на Cloudflare Worker — всё поднимается одним `npm run dev` через
 `@cloudflare/vite-plugin`.
